@@ -1,0 +1,5 @@
+# Data
+data/ham10000/
+
+# Cache
+.pytest_cache/
