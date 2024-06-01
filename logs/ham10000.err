@@ -1,0 +1,9 @@
+INFO:    Setting 'NVIDIA_VISIBLE_DEVICES=all' to emulate legacy GPU binding.
+INFO:    Setting --writable-tmpfs (required by nvidia-container-cli)
+Traceback (most recent call last):
+  File "/d/hpc/home/zk0821/xai_skin_lesion_recognition/src/data/ham10000.py", line 44, in <module>
+    main()
+  File "/d/hpc/home/zk0821/xai_skin_lesion_recognition/src/data/ham10000.py", line 39, in main
+    assert len(images) == 10_015
+AssertionError
+srun: error: gwn02: task 0: Exited with exit code 1

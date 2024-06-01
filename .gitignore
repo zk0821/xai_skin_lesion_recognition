@@ -3,3 +3,12 @@ data/ham10000/
 
 # Cache
 .pytest_cache/
+
+# Singularity Container
+containers/container.sif
+
+# Models
+models/*/*.pth
+
+# PyCache
+**/__pycache__/

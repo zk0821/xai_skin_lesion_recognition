@@ -1,0 +1,31 @@
+Model Type: Swin V2 Transformer
+Best validation loss detected at epoch 1! Validation Loss: 0.9357037956064398, Validation Accuracy: 0.6750757575757577. Saving model..
+Best validation loss detected at epoch 2! Validation Loss: 0.8417868457057259, Validation Accuracy: 0.7017803030303031. Saving model..
+Best validation loss detected at epoch 3! Validation Loss: 0.7838290095329284, Validation Accuracy: 0.7216666666666667. Saving model..
+Best validation loss detected at epoch 4! Validation Loss: 0.719778742573478, Validation Accuracy: 0.746780303030303. Saving model..
+Best validation loss detected at epoch 6! Validation Loss: 0.6860148028893904, Validation Accuracy: 0.7536363636363637. Saving model..
+Best validation loss detected at epoch 7! Validation Loss: 0.632776099985296, Validation Accuracy: 0.7706818181818182. Saving model..
+Best validation loss detected at epoch 8! Validation Loss: 0.6316433952613311, Validation Accuracy: 0.7678409090909092. Saving model..
+Best validation loss detected at epoch 9! Validation Loss: 0.5829764089801095, Validation Accuracy: 0.7837500000000001. Saving model..
+Best validation loss detected at epoch 10! Validation Loss: 0.5751015757972544, Validation Accuracy: 0.783219696969697. Saving model..
+Best validation loss detected at epoch 11! Validation Loss: 0.5460301445289092, Validation Accuracy: 0.8025378787878789. Saving model..
+Best validation loss detected at epoch 12! Validation Loss: 0.5404358118772506, Validation Accuracy: 0.8054166666666667. Saving model..
+Best validation loss detected at epoch 15! Validation Loss: 0.504808384180069, Validation Accuracy: 0.8156439393939394. Saving model..
+Best validation loss detected at epoch 17! Validation Loss: 0.5028955164280805, Validation Accuracy: 0.8150378787878788. Saving model..
+Best validation loss detected at epoch 18! Validation Loss: 0.48204495744271714, Validation Accuracy: 0.8259090909090908. Saving model..
+Best validation loss detected at epoch 23! Validation Loss: 0.4642111138863997, Validation Accuracy: 0.8310227272727272. Saving model..
+Best validation loss detected at epoch 27! Validation Loss: 0.46158608279444957, Validation Accuracy: 0.8310227272727272. Saving model..
+Best validation loss detected at epoch 28! Validation Loss: 0.45928663990714336, Validation Accuracy: 0.8304924242424243. Saving model..
+Best validation loss detected at epoch 30! Validation Loss: 0.4464819298549132, Validation Accuracy: 0.8412878787878788. Saving model..
+Best validation loss detected at epoch 33! Validation Loss: 0.43940967456860974, Validation Accuracy: 0.8378787878787879. Saving model..
+Best validation loss detected at epoch 34! Validation Loss: 0.43022925528613004, Validation Accuracy: 0.8452651515151516. Saving model..
+Best validation loss detected at epoch 36! Validation Loss: 0.42695315263488076, Validation Accuracy: 0.8441287878787879. Saving model..
+Best validation loss detected at epoch 38! Validation Loss: 0.4128479102795774, Validation Accuracy: 0.8504166666666667. Saving model..
+Best validation loss detected at epoch 41! Validation Loss: 0.41243934536522087, Validation Accuracy: 0.8515151515151516. Saving model..
+Best validation loss detected at epoch 44! Validation Loss: 0.4094369901852174, Validation Accuracy: 0.8560606060606061. Saving model..
+Best validation loss detected at epoch 48! Validation Loss: 0.4041810698129914, Validation Accuracy: 0.8611742424242425. Saving model..
+Best validation loss detected at epoch 52! Validation Loss: 0.4003327273509719, Validation Accuracy: 0.8708333333333333. Saving model..
+Best validation loss detected at epoch 56! Validation Loss: 0.3986164154654199, Validation Accuracy: 0.8617424242424243. Saving model..
+Best validation loss detected at epoch 67! Validation Loss: 0.39459660066799684, Validation Accuracy: 0.8685984848484849. Saving model..
+Test Loss: 0.42881461928541564, Test Accuracy: 0.8718820861678006
+Finished!

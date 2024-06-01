@@ -1,0 +1,17 @@
+Selected Model Type: ResNet
+Best validation loss detected at epoch 1! Validation Loss: 0.8756534711881118, Validation Accuracy: 0.7188636363636364. Saving model..
+Best validation loss detected at epoch 2! Validation Loss: 0.8421835075725209, Validation Accuracy: 0.6937878787878787. Saving model..
+Best validation loss detected at epoch 3! Validation Loss: 0.7920085934075443, Validation Accuracy: 0.7376515151515152. Saving model..
+Best validation loss detected at epoch 4! Validation Loss: 0.6757557329806414, Validation Accuracy: 0.7746969696969697. Saving model..
+Best validation loss detected at epoch 5! Validation Loss: 0.6743423421274531, Validation Accuracy: 0.7654166666666667. Saving model..
+Best validation loss detected at epoch 7! Validation Loss: 0.61427658227357, Validation Accuracy: 0.7797727272727273. Saving model..
+Best validation loss detected at epoch 9! Validation Loss: 0.6016024803573435, Validation Accuracy: 0.7792045454545455. Saving model..
+Best validation loss detected at epoch 10! Validation Loss: 0.5536558378826488, Validation Accuracy: 0.7951515151515152. Saving model..
+Best validation loss detected at epoch 13! Validation Loss: 0.5444761642000892, Validation Accuracy: 0.8013257575757575. Saving model..
+Best validation loss detected at epoch 17! Validation Loss: 0.5083876989104531, Validation Accuracy: 0.8117045454545454. Saving model..
+Best validation loss detected at epoch 21! Validation Loss: 0.4817694699222391, Validation Accuracy: 0.8298484848484848. Saving model..
+Best validation loss detected at epoch 27! Validation Loss: 0.4795062149112875, Validation Accuracy: 0.8372348484848484. Saving model..
+Best validation loss detected at epoch 39! Validation Loss: 0.472543442113833, Validation Accuracy: 0.8554924242424243. Saving model..
+Early stoppage...
+Test Loss: 0.6264667202125896, Test Accuracy: 0.8544318181818181
+Finished!

@@ -1,0 +1,19 @@
+Selected Model Type: CI-Net
+Best validation loss detected at epoch 1! Validation Loss: 1.0591543311422522, Validation Accuracy: 0.6807575757575758. Saving model..
+Best validation loss detected at epoch 2! Validation Loss: 0.8629122576930306, Validation Accuracy: 0.6863636363636364. Saving model..
+Best validation loss detected at epoch 3! Validation Loss: 0.8547458491542123, Validation Accuracy: 0.698939393939394. Saving model..
+Best validation loss detected at epoch 4! Validation Loss: 0.8222125286405737, Validation Accuracy: 0.7108712121212122. Saving model..
+Best validation loss detected at epoch 6! Validation Loss: 0.8058538791808215, Validation Accuracy: 0.7182575757575759. Saving model..
+Best validation loss detected at epoch 9! Validation Loss: 0.7560731362212788, Validation Accuracy: 0.7410606060606061. Saving model..
+Best validation loss detected at epoch 13! Validation Loss: 0.7438608391718431, Validation Accuracy: 0.7472727272727273. Saving model..
+Best validation loss detected at epoch 15! Validation Loss: 0.700979159636931, Validation Accuracy: 0.7581060606060606. Saving model..
+Best validation loss detected at epoch 16! Validation Loss: 0.6631176114082337, Validation Accuracy: 0.7592424242424243. Saving model..
+Best validation loss detected at epoch 17! Validation Loss: 0.6338344590230421, Validation Accuracy: 0.7694696969696969. Saving model..
+Best validation loss detected at epoch 24! Validation Loss: 0.6312087820334868, Validation Accuracy: 0.7642803030303031. Saving model..
+Best validation loss detected at epoch 25! Validation Loss: 0.6212238244035028, Validation Accuracy: 0.7791666666666667. Saving model..
+Best validation loss detected at epoch 32! Validation Loss: 0.6053580918095328, Validation Accuracy: 0.7837121212121212. Saving model..
+Best validation loss detected at epoch 34! Validation Loss: 0.6005482180552049, Validation Accuracy: 0.7791287878787879. Saving model..
+Best validation loss detected at epoch 37! Validation Loss: 0.5697713594545017, Validation Accuracy: 0.7900378787878788. Saving model..
+Best validation loss detected at epoch 49! Validation Loss: 0.5324453987858512, Validation Accuracy: 0.8104924242424243. Saving model..
+Test Loss: 0.5718291842124679, Test Accuracy: 0.8152651515151514
+Finished!
