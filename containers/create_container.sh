@@ -3,4 +3,5 @@ singularity exec containers/container.sif pip install install torch torchvision 
 singularity exec containers/container.sif pip install requests
 singularity exec containers/container.sif pip install opencv-python-headless
 singularity exec containers/container.sif pip install matplotlib
+singularity exec containers/container.sif pip install seaborn
 singularity exec containers/container.sif pip install scikit-image

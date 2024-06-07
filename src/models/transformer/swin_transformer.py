@@ -14,6 +14,10 @@ import numpy as np
 from tqdm import tqdm
 import json
 import ssl
+from sklearn.metrics import roc_auc_score, average_precision_score, confusion_matrix
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 class SwinV2Classifier(nn.Module):
@@ -33,6 +37,10 @@ class SwinV2Model:
         # Device
         print(f"Model Type: Swin V2 Transformer")
         self.model_type = "transformer"
+        if do_oversampling:
+            self.model_type += "_sampling"
+        if do_loss_weights:
+            self.model_type += "_weights"
         self.device = torch.device("cuda")
         self.size = size
         self.do_oversampling = do_oversampling
@@ -119,6 +127,9 @@ class SwinV2Model:
         self.total_loss_train, self.total_acc_train = [], []
         self.total_loss_val, self.total_acc_val = [], []
 
+    def load_model(self):
+        self.model.load_state_dict(torch.load(f"models/{self.model_type}/{self.model_type}.pth"))
+
     def train_model(self):
         for epoch in range(1, self.epoch_num + 1):
             with tqdm(self.train_dataloader, unit="batch") as prog:
@@ -176,7 +187,7 @@ class SwinV2Model:
         val_loss = AverageMeter()
         val_acc = AverageMeter()
         with torch.no_grad():
-            for _, data in enumerate(dataloader):
+            for ix, data in enumerate(dataloader):
                 images, labels = data
                 N = images.size(0)
 
@@ -188,6 +199,31 @@ class SwinV2Model:
 
                 val_acc.update(predictions.eq(labels.view_as(predictions)).sum().item() / N)
                 val_loss.update(self.criterion(outputs, labels).item())
+                # ROC AUC
+                if ix == 0:
+                    all_labels = labels.cpu().numpy()
+                    all_predictions = predictions.cpu().numpy()
+                    all_probs = torch.softmax(outputs, dim=1).cpu().numpy()
+                else:
+                    all_labels = np.concatenate((all_labels, labels.cpu().numpy()), axis=0)
+                    all_predictions = np.concatenate((all_predictions, predictions.cpu().numpy()), axis=0)
+                    all_probs = np.concatenate((all_probs, torch.softmax(outputs, dim=1).cpu().numpy()), axis=0)
+            auc_macro_ovr = roc_auc_score(all_labels, all_probs, average="macro", multi_class="ovr")
+            auc_macro_ovo = roc_auc_score(all_labels, all_probs, average="macro", multi_class="ovo")
+            ap_macro = average_precision_score(all_labels, all_probs, average="macro")
+            print(f"AUC Macro OVR: {auc_macro_ovr}, AUC Macro OVO: {auc_macro_ovo}, AP Macro: {ap_macro}")
+            # Build confusion matrix
+            cf_matrix = confusion_matrix(all_labels, all_predictions)
+            classes = self.ham_df_object.get_categories().categories
+            new_classes = []
+            for clss in classes:
+                new_class = clss.replace(" ", "\n")
+                new_classes.append(new_class)
+            df_cm = pd.DataFrame(cf_matrix / np.sum(cf_matrix, axis=1)[:, None], index=[i for i in new_classes], columns=[i for i in new_classes])
+            plt.figure(figsize=(15, 10))
+            sns.heatmap(df_cm, annot=True)
+            plt.tight_layout()
+            plt.savefig(f"models/{self.model_type}/confusion_matrix.png")
         return val_loss.avg, val_acc.avg
 
     def test_model(self):
@@ -206,20 +242,25 @@ class SwinV2Model:
             json.dump(self.total_loss_val, val_loss_file)
 
 
-def main():
+def main(train=False, sampling=False, class_weights=False):
     # For downloading models from PyTorch Vision
     ssl._create_default_https_context = ssl._create_unverified_context
     # Swin Transformer
-    swin_transformer = SwinV2Model(size=(224, 224), do_oversampling=False, do_loss_weights=False)
+    swin_transformer = SwinV2Model(size=(224, 224), do_oversampling=sampling, do_loss_weights=class_weights)
     swin_transformer.read_metadata_dataframe(path="data/ham10000/metadata.csv")
     swin_transformer.perform_dataset_split()
     swin_transformer.create_dataloaders()
     swin_transformer.prepare_model()
-    swin_transformer.train_model()
-    swin_transformer.test_model()
-    swin_transformer.dump_metrics()
+    if train:
+        swin_transformer.train_model()
+        swin_transformer.load_model()
+        swin_transformer.test_model()
+        swin_transformer.dump_metrics()
+    else:
+        swin_transformer.load_model()
+        swin_transformer.test_model()
     print("Finished!")
 
 
 if __name__ == "__main__":
-    main()
+    main(train=True, sampling=False, class_weights=True)

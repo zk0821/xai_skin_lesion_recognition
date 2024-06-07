@@ -130,6 +130,7 @@ def main():
     plt.matshow(heatmap.squeeze())
     plt.savefig("heatmap.jpg")
     img = cv2.imread(img_path[0])
+    img = cv2.resize(img, (224, 224))
     cv2.imwrite("original.jpg", img)
     heatmap = cv2.resize(heatmap.numpy(), (img.shape[1], img.shape[0]))
     heatmap = np.uint8(255 * heatmap)

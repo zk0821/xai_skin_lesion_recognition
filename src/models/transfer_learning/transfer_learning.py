@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils.class_weight import compute_class_weight
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader, WeightedRandomSampler
-from sklearn.metrics import roc_auc_score, average_precision_score
+from sklearn.metrics import roc_auc_score, average_precision_score, confusion_matrix
 import numpy as np
 import torch
 import torch.optim as optim
@@ -19,6 +19,9 @@ import cv2
 from tqdm import tqdm
 import glob
 import json
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 class TransferLearning:
@@ -37,6 +40,10 @@ class TransferLearning:
             self.model_type = model_type
         else:
             raise RuntimeError(f"Model type: {model_type} is not supported!")
+        if do_oversampling:
+            self.model_type += "_sampling"
+        if do_loss_weights:
+            self.model_type += "_weights"
         self.size = size
         self.do_oversampling = do_oversampling
         self.do_loss_weights = do_loss_weights
@@ -105,11 +112,11 @@ class TransferLearning:
         self.test_dataloader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=8)
 
     def prepare_model(self):
-        if self.model_type == "resnet":
+        if self.model_type == "resnet" or self.model_type == "resnet_sampling" or self.model_type == "resnet_weights":
             self.model = CustomResNet(num_classes=self.num_classes)
-        elif self.model_type == "densenet":
+        elif self.model_type == "densenet" or self.model_type == "densenet_sampling" or self.model_type == "densenet_weights":
             self.model = CustomDenseNet(num_classes=self.num_classes)
-        elif self.model_type == "efficientnet":
+        elif self.model_type == "efficientnet" or self.model_type == "efficientnet_sampling" or self.model_type == "efficientnet_weights":
             self.model = CustomEfficientNet(num_classes=self.num_classes)
         else:
             raise RuntimeError(f"Unsupported model type!")
@@ -205,13 +212,27 @@ class TransferLearning:
                 # ROC AUC
                 if ix == 0:
                     all_labels = labels.cpu().numpy()
+                    all_predictions = predictions.cpu().numpy()
                     all_probs = torch.softmax(outputs, dim=1).cpu().numpy()
                 else:
                     all_labels = np.concatenate((all_labels, labels.cpu().numpy()), axis=0)
+                    all_predictions = np.concatenate((all_predictions, predictions.cpu().numpy()), axis=0)
                     all_probs = np.concatenate((all_probs, torch.softmax(outputs, dim=1).cpu().numpy()), axis=0)
-            auc_micro = roc_auc_score(all_labels, all_probs, average="micro", multi_class="ovr")
-            ap_micro = average_precision_score(all_labels, all_probs, average="micro")
-            print(f"AUC Micro: {auc_micro}, AP Micro: {ap_micro}")
+            auc_macro_ovr = roc_auc_score(all_labels, all_probs, average="macro", multi_class="ovr")
+            auc_macro_ovo = roc_auc_score(all_labels, all_probs, average="macro", multi_class="ovo")
+            ap_macro = average_precision_score(all_labels, all_probs, average="macro")
+            print(f"AUC Macro OVR: {auc_macro_ovr}, AUC Macro OVO: {auc_macro_ovo}, AP Macro: {ap_macro}")
+            # Build confusion matrix
+            cf_matrix = confusion_matrix(all_labels, all_predictions)
+            classes = self.ham_df_object.get_categories().categories
+            new_classes = []
+            for clss in classes:
+                new_class = clss.replace(" ", "\n")
+                new_classes.append(new_class)
+            df_cm = pd.DataFrame(cf_matrix / np.sum(cf_matrix, axis=1)[:, None], index=[i for i in new_classes], columns=[i for i in new_classes])
+            plt.figure(figsize=(15, 10))
+            sns.heatmap(df_cm, annot=True)
+            plt.savefig(f"models/{self.model_type}/confusion_matrix.png")
         return val_loss.avg, val_acc.avg
 
     def test_model(self):
